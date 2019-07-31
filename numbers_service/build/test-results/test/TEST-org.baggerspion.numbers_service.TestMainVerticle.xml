@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.baggerspion.numbers_service.TestMainVerticle" tests="1" skipped="0" failures="1" errors="0" timestamp="2019-07-29T16:57:37" hostname="ALT01788" time="0.215">
+  <properties/>
+  <testcase name="verticle_deployed(Vertx, VertxTestContext)" classname="org.baggerspion.numbers_service.TestMainVerticle" time="0.215">
+    <failure message="org.apache.kafka.common.config.ConfigException: Missing required configuration &quot;key.serializer&quot; which has no default value." type="org.apache.kafka.common.config.ConfigException">org.apache.kafka.common.config.ConfigException: Missing required configuration &quot;key.serializer&quot; which has no default value.
+	at org.apache.kafka.common.config.ConfigDef.parseValue(ConfigDef.java:474)
+	at org.apache.kafka.common.config.ConfigDef.parse(ConfigDef.java:464)
+	at org.apache.kafka.common.config.AbstractConfig.&lt;init&gt;(AbstractConfig.java:62)
+	at org.apache.kafka.common.config.AbstractConfig.&lt;init&gt;(AbstractConfig.java:75)
+	at org.apache.kafka.clients.producer.ProducerConfig.&lt;init&gt;(ProducerConfig.java:396)
+	at org.apache.kafka.clients.producer.KafkaProducer.&lt;init&gt;(KafkaProducer.java:272)
+	at io.vertx.kafka.client.producer.impl.KafkaWriteStreamImpl.create(KafkaWriteStreamImpl.java:52)
+	at io.vertx.kafka.client.producer.KafkaWriteStream.create(KafkaWriteStream.java:92)
+	at io.vertx.kafka.client.producer.KafkaProducer.create(KafkaProducer.java:149)
+	at org.baggerspion.numbers_service.MainVerticle.start(MainVerticle.kt:20)
+	at io.vertx.core.impl.DeploymentManager.lambda$doDeploy$8(DeploymentManager.java:552)
+	at io.vertx.core.impl.ContextImpl.executeTask(ContextImpl.java:320)
+	at io.vertx.core.impl.EventLoopContext.lambda$executeAsync$0(EventLoopContext.java:38)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:495)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:905)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[log4j:WARN No appenders could be found for logger (io.netty.util.internal.logging.InternalLoggerFactory).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+]]></system-err>
+</testsuite>
