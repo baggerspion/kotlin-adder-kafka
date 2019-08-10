@@ -1,17 +1,19 @@
 package org.baggerspion.numbers_service
 
 import io.vertx.core.AbstractVerticle
+import io.vertx.core.AsyncResult
 import io.vertx.core.Future
 import io.vertx.core.buffer.Buffer
 import io.vertx.core.json.JsonObject
 import io.vertx.kafka.client.producer.KafkaProducer
 import io.vertx.kafka.client.producer.KafkaProducerRecord
+import io.vertx.kafka.client.producer.RecordMetadata
 import java.util.*
 
 class MainVerticle : AbstractVerticle() {
   override fun start(startFuture: Future<Void>) {
     val config = mutableMapOf<String, String>()
-    config.put("bootxstrap.servers", "localhost:9092")
+    config.put("bootstrap.servers", "localhost:9092")
     config.put("key.serializer", "io.vertx.kafka.client.serialization.StringSerializer")
     config.put("value.serializer", "io.vertx.kafka.client.serialization.JsonObjectSerializer")
     config.put("group.id", "my_group")
@@ -34,7 +36,7 @@ class MainVerticle : AbstractVerticle() {
       producer.send(record) { resp: AsyncResult<RecordMetadata> ->
         if (resp.succeeded()) {
           val meta: RecordMetadata = resp.result()
-          println("Status: Success, Message: ${record.value()}, Topic: ${meta.getTopic()}, Partition: ${meta.getPartition()}, Offset: ${meta.getOffset())}")
+          println("Status: Success, Message: ${record.value()}, Topic: ${meta.getTopic()}, Partition: ${meta.getPartition()}, Offset: ${meta.getOffset()}")
         } else {
           println("Status: Fail, Message: ${record.value()}")
         }
