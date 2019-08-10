@@ -32,7 +32,7 @@ class MainVerticle : AbstractVerticle() {
         .put("operand1", op1)
         .put("operand2", op2)
 
-      val record = KafkaProducerRecord.create<String, JsonObject>("adder_queue", obj)
+      val record = KafkaProducerRecord.create<String, JsonObject>("adder", obj)
       producer.send(record) { resp: AsyncResult<RecordMetadata> ->
         if (resp.succeeded()) {
           val meta: RecordMetadata = resp.result()
