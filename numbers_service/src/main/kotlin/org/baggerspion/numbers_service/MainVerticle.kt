@@ -11,12 +11,12 @@ import java.util.*
 class MainVerticle : AbstractVerticle() {
   override fun start(startFuture: Future<Void>) {
     val config = mutableMapOf<String, String>()
-    config.put("bootstrap.servers", "localhost:9092");
-    config.put("key.serializer", "io.vertx.kafka.client.serialization.StringSerializer");
-    config.put("value.serializer", "io.vertx.kafka.client.serialization.JsonObjectSerializer");
-    config.put("group.id", "my_group");
-    config.put("auto.offset.reset", "earliest");
-    config.put("enable.auto.commit", "false");
+    config.put("bootxstrap.servers", "localhost:9092")
+    config.put("key.serializer", "io.vertx.kafka.client.serialization.StringSerializer")
+    config.put("value.serializer", "io.vertx.kafka.client.serialization.JsonObjectSerializer")
+    config.put("group.id", "my_group")
+    config.put("auto.offset.reset", "earliest")
+    config.put("enable.auto.commit", "false")
 
     val producer = KafkaProducer.create<String, JsonObject>(vertx, config, String::class.java, JsonObject::class.java)
 
@@ -31,8 +31,16 @@ class MainVerticle : AbstractVerticle() {
         .put("operand2", op2)
 
       val record = KafkaProducerRecord.create<String, JsonObject>("adder_queue", obj)
-      producer.write(record)
-      println("Placed record: $uid. Expected result: ${op1 + op2}")
+      producer.send(record) { resp: AsyncResult<RecordMetadata> ->
+        if (resp.succeeded()) {
+          val meta: RecordMetadata = resp.result()
+          println("Message " + record.value() + " written on topic=" + meta.getTopic() +
+            ", partition=" + meta.getPartition() +
+            ", offset=" + meta.getOffset())
+        } else {
+          println("Failed to post: ${record.value()}")
+        }
+      }
     }
   }
 }
