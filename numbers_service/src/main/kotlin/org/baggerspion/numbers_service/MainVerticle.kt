@@ -34,11 +34,9 @@ class MainVerticle : AbstractVerticle() {
       producer.send(record) { resp: AsyncResult<RecordMetadata> ->
         if (resp.succeeded()) {
           val meta: RecordMetadata = resp.result()
-          println("Message " + record.value() + " written on topic=" + meta.getTopic() +
-            ", partition=" + meta.getPartition() +
-            ", offset=" + meta.getOffset())
+          println("Status: Success, Message: ${record.value()}, Topic: ${meta.getTopic()}, Partition: ${meta.getPartition()}, Offset: ${meta.getOffset())}")
         } else {
-          println("Failed to post: ${record.value()}")
+          println("Status: Fail, Message: ${record.value()}")
         }
       }
     }
